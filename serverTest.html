@@ -1,0 +1,60 @@
+<html>
+    <head>
+
+    </head>
+
+    <body>
+        <a href="index.html">home page</a>
+        <!-- HTML Structure -->
+<div style="margin: 20px;">
+  <input type="text" id="discord-msg" placeholder="Type a message for Discord..." style="padding: 8px; width: 250px;" />
+  <button id="send-btn" style="padding: 8px 15px;">Send to Discord</button>
+  <p id="status-text" style="margin-top: 10px; font-weight: bold;"></p>
+</div>
+
+<!-- JavaScript Logic -->
+<script>
+    const BACKEND_URL = 'https://spine-evaluation-primary-conversations.trycloudflare.com';
+
+    document.getElementById('send-btn').addEventListener('click', async () => {
+        const messageInput = document.getElementById('discord-msg');
+        const statusText = document.getElementById('status-text');
+        const messageText = messageInput.value.trim();
+
+        if (!messageText) {
+            statusText.innerText = "Type something first!";
+            statusText.style.color = "red";
+            return;
+        }
+
+        statusText.innerText = "Sending...";
+        statusText.style.color = "orange";
+
+        try {
+            const response = await fetch(`${BACKEND_URL}/api/send-discord`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: messageText })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                statusText.innerText = "Sent to Discord!";
+                statusText.style.color = "green";
+                messageInput.value = ""; // Clear input box
+            } else {
+                statusText.innerText = "Error: " + (result.details || "Failed to send");
+                statusText.style.color = "red";
+            }
+        } catch (error) {
+            console.error("Connection error:", error);
+            statusText.innerText = "Failed to connect to backend server.";
+            statusText.style.color = "red";
+        }
+    });
+</script>
+    </body>
+</html>
