@@ -70,7 +70,8 @@
     </style>
 </head>
 <body>
-    <form>
+    <!-- 1. FIXED: Added id="discordForm" here so JS can find it -->
+    <form id="discordForm">
         <input type="text" id="message" placeholder="Type message for webhook...">
         <button type="submit">Send</button>
     </form>
@@ -79,17 +80,27 @@
 document.getElementById('discordForm').addEventListener('submit', async function(e) {
   e.preventDefault();
 
-  const messageText = document.getElementById('userMessage').value;
+  <!-- 2. FIXED: Changed 'userMessage' to 'message' to match the HTML input ID above -->
+  const messageText = document.getElementById('message').value;
   const makeWebhookUrl = 'https://hook.us2.make.com/uuoiepq15fdxmkwbyf2sg2jhde6p6nv3';
 
-  await fetch(makeWebhookUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message: messageText })
-  });
-
-  alert('Sent successfully!');
+  <!-- 3. FIXED: Added a try/catch error wrapper so your page doesn't silently break if Make fails -->
+  try {
+    const response = await fetch(makeWebhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: messageText })
+    });
+    
+    if (response.ok) {
+      alert('Sent successfully!');
+    } else {
+      alert('Make received it but returned an error.');
+    }
+  } catch (error) {
+    console.error(error);
+    alert('Failed to send. Make sure Make is actively listening!');
+  }
 });
 </script>
-
 </html>
