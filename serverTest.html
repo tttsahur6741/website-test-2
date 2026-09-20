@@ -77,12 +77,11 @@
 </body>
 <script>
 document.getElementById('discordForm').addEventListener('submit', async function(e) {
-  e.preventDefault(); // Stops the page from refreshing
+  e.preventDefault();
 
   const messageText = document.getElementById('userMessage').value;
-  const makeWebhookUrl = 'PASTE_YOUR_PURPLE_MAKE_WEBHOOK_URL_HERE';
+  const makeWebhookUrl = 'https://hook.us2.make.com/uuoiepq15fdxmkwbyf2sg2jhde6p6nv3';
 
-  // This fires the data over to your Make scenario instantly
   await fetch(makeWebhookUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
