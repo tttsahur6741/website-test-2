@@ -1,6 +1,78 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webhook Form</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #121212;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            max-width: 400px;
+            padding: 24px;
+            box-sizing: border-box;
+        }
+
+        #message {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 18px;
+            color: #ffffff;
+            background-color: #1e1e1e;
+            border: 2px solid #333333;
+            border-radius: 12px;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        #message::placeholder {
+            color: #888888;
+        }
+
+        #message:focus {
+            border-color: #6200ee;
+            background-color: #252525;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #6200ee;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #7c4dff;
+        }
+
+        button[type="submit"]:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
     <form>
-        <input type="text" id="message" placeholder="type message for webhook">
-        <button type="submit">send</button>
+        <input type="text" id="message" placeholder="Type message for webhook...">
+        <button type="submit">Send</button>
     </form>
+</body>
 </html>
