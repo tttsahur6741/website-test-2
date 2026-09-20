@@ -75,4 +75,22 @@
         <button type="submit">Send</button>
     </form>
 </body>
+<script>
+document.getElementById('discordForm').addEventListener('submit', async function(e) {
+  e.preventDefault(); // Stops the page from refreshing
+
+  const messageText = document.getElementById('userMessage').value;
+  const makeWebhookUrl = 'PASTE_YOUR_PURPLE_MAKE_WEBHOOK_URL_HERE';
+
+  // This fires the data over to your Make scenario instantly
+  await fetch(makeWebhookUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: messageText })
+  });
+
+  alert('Sent successfully!');
+});
+</script>
+
 </html>
